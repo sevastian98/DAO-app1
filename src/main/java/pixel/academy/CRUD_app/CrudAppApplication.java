@@ -18,6 +18,7 @@ public class CrudAppApplication {
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 		return runner -> {
 			createStudent(studentDAO);
+			createMultipleStudents(studentDAO);
 		};
 	}
 
@@ -33,6 +34,20 @@ public class CrudAppApplication {
 
 		// Afisam ID-ul studentului salvat
 		System.out.println("SAved student. Generated id: " + newStudent.getId());
+	}
+	private void createMultipleStudents(StudentDAO studentDAO) {
+		//cream mai multi constructori
+		System.out.println("Creating 3 student objects...");
+		Student newStudent1 = new Student("Andrei","Munteanu","adnrei@pixelacademy.md");
+		Student newStudent2 = new Student("Iulian","Vataman","iulian@pixelacademy.md");
+		Student newStudent3 = new Student("Maria","Mirabela","maria@pixelacademy.md");
+
+		//salvam obiectele student in baza de date
+		System.out.println("Saving the students...");
+		studentDAO.save(newStudent1);
+		studentDAO.save(newStudent2);
+		studentDAO.save(newStudent3);
+
 	}
 
 }
