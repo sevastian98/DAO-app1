@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import pixel.academy.CRUD_app.dao.StudentDAO;
 import pixel.academy.CRUD_app.entity.Student;
 
+import java.sql.SQLOutput;
+
 @SpringBootApplication
 public class CrudAppApplication {
 
@@ -17,8 +19,9 @@ public class CrudAppApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 		return runner -> {
-			createStudent(studentDAO);
-			createMultipleStudents(studentDAO);
+			//createStudent(studentDAO);
+			//createMultipleStudents(studentDAO);
+			readStudent(studentDAO);
 		};
 	}
 
@@ -48,6 +51,27 @@ public class CrudAppApplication {
 		studentDAO.save(newStudent2);
 		studentDAO.save(newStudent3);
 
+	}
+	private void readStudent(StudentDAO studentDAO) {
+
+		// Creeaza un obiect de tip Student
+		System.out.println("Creating new student object ...");
+		Student newStudent = new Student("Mircea", "Popescu","mircea@pixel.md");
+
+		// Salveaza studentul in baza de date
+		System.out.println("Saving the student ...");
+		studentDAO.save(newStudent);
+
+		// Afiseaza Id-ul studentului salvat
+		int theId = newStudent.getId();
+		System.out.println("Saved student. Generated id: " + theId);
+
+		// Recupereaza studentul pe baza ID-ului (PK)
+		System.out.println("Retrieving student with id: " + theId);
+		Student myStudent = studentDAO.findById(theId);
+
+		// Afiseaza detaliile studentului
+		System.out.println("Found the student: " + myStudent);
 	}
 
 }
