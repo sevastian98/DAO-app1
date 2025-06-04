@@ -8,6 +8,7 @@ import pixel.academy.CRUD_app.dao.StudentDAO;
 import pixel.academy.CRUD_app.entity.Student;
 
 import java.sql.SQLOutput;
+import java.util.List;
 
 @SpringBootApplication
 public class CrudAppApplication {
@@ -21,8 +22,20 @@ public class CrudAppApplication {
 		return runner -> {
 			//createStudent(studentDAO);
 			//createMultipleStudents(studentDAO);
-			readStudent(studentDAO);
+			//readStudent(studentDAO);
+
+			queryForStudents(studentDAO);
 		};
+	}
+
+	private void queryForStudents(StudentDAO studentDAO) {
+		// Obtine lista de studenti
+		List<Student> theStudents = studentDAO.findAll();
+
+		//  Afiseaza lista de studenti
+		for (Student newStudent : theStudents) {
+			System.out.println(newStudent);
+		}
 	}
 
 	private void createStudent(StudentDAO studentDAO) {
