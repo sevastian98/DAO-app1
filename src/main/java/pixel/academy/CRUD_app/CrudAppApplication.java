@@ -23,8 +23,9 @@ public class CrudAppApplication {
 			//createStudent(studentDAO);
 			//createMultipleStudents(studentDAO);
 			//readStudent(studentDAO);
+			//queryForStudents(studentDAO);
 
-			queryForStudents(studentDAO);
+			queryForStudentsByLastName(studentDAO);
 		};
 	}
 
@@ -42,14 +43,14 @@ public class CrudAppApplication {
 
 		// Cream un obiect Studnet
 		System.out.println("Creating new student object ...");
-		Student newStudent = new Student("John","Doe","john@pixelacademy.md");
+		Student newStudent = new Student("Mircea","Popescu","mircea@pixel.md");
 
 		// Salvam obiectul Student in baza de date folosind DAO
 		System.out.println("Saving the student...");
 		studentDAO.save(newStudent);
 
 		// Afisam ID-ul studentului salvat
-		System.out.println("SAved student. Generated id: " + newStudent.getId());
+		System.out.println("Saved student. Generated id: " + newStudent.getId());
 	}
 	private void createMultipleStudents(StudentDAO studentDAO) {
 		//cream mai multi constructori
@@ -86,5 +87,17 @@ public class CrudAppApplication {
 		// Afiseaza detaliile studentului
 		System.out.println("Found the student: " + myStudent);
 	}
+
+	private void queryForStudentsByLastName(StudentDAO studentDAO) {
+
+		//returneaza lista de studenti
+		List<Student> theStudent = studentDAO.findByLastName("Popescu");
+
+		//afiseaza lista de studenti
+		for (Student newStudent : theStudent) {
+			System.out.println(newStudent);
+		}
+	}
+
 
 }
